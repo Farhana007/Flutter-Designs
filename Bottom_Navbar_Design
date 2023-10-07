@@ -1,0 +1,112 @@
+//this is the main screen of all bottom navbar screen
+
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:flutter/material.dart';
+import 'sample_home.dart';
+
+class BottomNavBar extends StatefulWidget {
+  const BottomNavBar({super.key});
+
+  @override
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  // Screen index defining
+  int screenIndx = 0;
+
+  // List of your Navbar screens
+  List<Widget> screenList = [
+    SampleHome(),
+    SampleHome(),
+    SampleHome(),
+    SampleHome(),
+  ];
+
+//list of icons
+  List<String> listOfIcons = [
+    homeIcon,
+    calendarIcon,
+    walletIcon,
+    profileIcon,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Display the currently selected screen
+          screenList.elementAt(screenIndx),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Align(
+              alignment: const Alignment(0.0, 1.0),
+
+              //desigining the navbar
+              child: Container(
+                height: 60,
+                width: MediaQuery.sizeOf(context).width * 0.8,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1), // Shadow color
+                      blurRadius: 3, // Spread radius
+                      offset: Offset(0, 1), // Offset in (x, y)
+                    ),
+                  ],
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    for (int index = 0; index < 4; index++)
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            screenIndx = index;
+                          });
+                        },
+                        child: Container(
+                          child: Center(
+                            child: SizedBox(
+                              width: 19,
+                              height: 19,
+                      //colorFiltered to Changes the Colors of SVG images
+                              child: ColorFiltered(
+                                colorFilter: ColorFilter.mode(
+                                  index == screenIndx ? Colors.white : black,
+                                  BlendMode.srcIn,
+                                ),
+                                child: SvgPicture.asset(
+                                  listOfIcons[index],
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                            .box
+                            .size(45, 45)
+                            .roundedFull
+                            .color(
+                              index == screenIndx
+                                  ? Colors.black
+                                  : Color(0xFFF9F9F9),
+                            )
+                            .make(),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
