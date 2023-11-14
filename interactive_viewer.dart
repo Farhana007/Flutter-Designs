@@ -19,6 +19,9 @@ class _InteractiveViewerPageState extends State<InteractiveViewerPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InteractiveViewer(
+                maxScale: 4,
+                minScale: 0.01,
+                boundaryMargin: EdgeInsets.all(double.infinity),
                 child: Image.asset("your assests path here")),
             30.heightBox,
             "How to Use Zoom Effect In flutter "
